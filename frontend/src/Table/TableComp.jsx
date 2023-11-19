@@ -1,10 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Space, Table, Modal, Form, Input, DatePicker, message } from 'antd';
-import axios from 'axios';
-import './TableComp.css';
-import EditTeacher from '../editTeacher/editTeacher';
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  Space,
+  Table,
+  Modal,
+  Form,
+  Input,
+  DatePicker,
+  message,
+} from "antd";
+import axios from "axios";
+import "./TableComp.css";
+import EditTeacher from "../editTeacher/EditTeacher";
 
-const TableComp = ({data,setData,setEditVisible,editVisible}) => {
+const TableComp = ({
+  data,
+  setData,
+  setEditVisible,
+  editVisible,
+  onUpdate,
+}) => {
   const [filteredInfo, setFilteredInfo] = useState({});
   const [sortedInfo, setSortedInfo] = useState({});
   const [visible, setVisible] = useState(false);
@@ -16,19 +31,22 @@ const TableComp = ({data,setData,setEditVisible,editVisible}) => {
     setSortedInfo(sorter);
   };
 
-    const handleEdit = (record) => {
-      console.log(record)
+  const handleEdit = (record) => {
+    console.log(record);
     setEditRecord(record);
     setEditVisible(true);
   };
 
   const handleDelete = async (record) => {
     try {
-      console.log(record._id)
-      await axios.delete(`http://localhost:3000/api/teachers/delete/${record._id}`);
-      message.success('User deleted successfully!');
+      console.log(record._id);
+      await axios.delete(
+        `https://teacher-management-backend.vercel.app/api/teachers/delete/${record._id}`
+      );
+      message.success("User deleted successfully!");
+      onUpdate();
     } catch (error) {
-      message.error('Error deleting user: ' + error.message);
+      message.error("Error deleting user: " + error.message);
     }
   };
 
@@ -41,62 +59,65 @@ const TableComp = ({data,setData,setEditVisible,editVisible}) => {
   const handleUpdate = async () => {
     try {
       const values = await form.validateFields();
-      await axios.put(`http://localhost:3000/teachers/${editRecord._id}`, values);
-      message.success('User updated successfully!');
+      await axios.put(
+        `https://teacher-management-backend.vercel.app/teachers/${editRecord._id}`,
+        values
+      );
+      message.success("User updated successfully!");
       setVisible(false);
       setEditRecord(null);
       form.resetFields();
       fetchData(); // Refresh data after update
     } catch (error) {
-      message.error('Error updating user: ' + error.message);
+      message.error("Error updating user: " + error.message);
     }
   };
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'fullName',
+      title: "Name",
+      dataIndex: "fullName",
       width: 150,
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
+      title: "Age",
+      dataIndex: "age",
       width: 150,
     },
     {
-      title: 'Date of Birth',
-      dataIndex: 'dateOfBirth',
+      title: "Date of Birth",
+      dataIndex: "dateOfBirth",
       width: 150,
     },
     {
-      title: 'Number of Classes',
-      dataIndex: 'numberOfClasses',
+      title: "Number of Classes",
+      dataIndex: "numberOfClasses",
       width: 150,
     },
     {
-      title: 'Action',
-      key: 'action',
+      title: "Action",
+      key: "action",
       render: (text, record) => (
-          <Button type="primary" onClick={() => handleEdit(record)}>
-            Edit
-          </Button>
+        <Button type="primary" onClick={() => handleEdit(record)}>
+          Edit
+        </Button>
       ),
       width: 150,
     },
     {
-      title: 'Action',
-      key: 'action',
+      title: "Action",
+      key: "action",
       render: (text, record) => (
-          <Button danger type="primary" onClick={() => handleDelete(record)}>
-            Delete
-          </Button>
+        <Button danger type="primary" onClick={() => handleDelete(record)}>
+          Delete
+        </Button>
       ),
       width: 150,
     },
   ];
 
   return (
-    <div className='TableContainer'>
+    <div className="TableContainer">
       <Table
         columns={columns}
         dataSource={data}
@@ -130,8 +151,14 @@ const TableComp = ({data,setData,setEditVisible,editVisible}) => {
           </Form.Item>
         </Form>
       </Modal>
-     {editVisible && <EditTeacher editVisible={editVisible} setEditVisible={setEditVisible} editRecord={editRecord}/>}
-      
+      {editVisible && (
+        <EditTeacher
+          editVisible={editVisible}
+          setEditVisible={setEditVisible}
+          editRecord={editRecord}
+          onUpdate={onUpdate}
+        />
+      )}
     </div>
   );
 };

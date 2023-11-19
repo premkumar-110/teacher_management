@@ -1,27 +1,35 @@
-.DashboardContainer{
-    padding: 1rem;
-    width: 100%;
+.DashboardContainer {
+  padding: 1rem;
+  width: 100%;
 }
 
-.SearchContainer{
-     width: 95%;
-     display: flex;
-     align-items: center;
-     justify-content: space-around;
-     gap: 2rem;
+.SearchContainer {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
 }
-.HeaderSearch{
-    width: 100%;
-    font-size: 3rem;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.HeaderSearch {
+  width: 100%;
+  font-size: 3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.AddTeacherButton{
-    padding: 1.2rem 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
+.AddTeacherButton {
+  padding: 1rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.filterBtn {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
 }
