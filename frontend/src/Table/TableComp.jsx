@@ -2,60 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { Button, Space, Table, Modal, Form, Input, DatePicker, message } from 'antd';
 import axios from 'axios';
 import './TableComp.css';
+import EditTeacher from '../editTeacher/editTeacher';
 
-const TableComp = () => {
-  const [data, setData] = useState([]);
+const TableComp = ({data,setData,setEditVisible,editVisible}) => {
   const [filteredInfo, setFilteredInfo] = useState({});
   const [sortedInfo, setSortedInfo] = useState({});
   const [visible, setVisible] = useState(false);
   const [editRecord, setEditRecord] = useState(null);
   const [form] = Form.useForm();
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/teachers');
-      setData(response.data);
-    } catch (error) {
-      message.error('Error fetching data: ' + error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []); // Fetch data on component mount
-
   const handleChange = (pagination, filters, sorter) => {
     setFilteredInfo(filters);
     setSortedInfo(sorter);
   };
 
-  const clearFilters = () => {
-    setFilteredInfo({});
-  };
-
-  const clearAll = () => {
-    setFilteredInfo({});
-    setSortedInfo({});
-  };
-
-  const setAgeSort = () => {
-    setSortedInfo({
-      order: 'descend',
-      columnKey: 'age',
-    });
-  };
-
-  const handleEdit = (record) => {
+    const handleEdit = (record) => {
+      console.log(record)
     setEditRecord(record);
-    setVisible(true);
-    form.setFieldsValue(record);
+    setEditVisible(true);
   };
 
   const handleDelete = async (record) => {
     try {
-      await axios.delete(`http://localhost:3000/teachers/${record._id}`);
+      console.log(record._id)
+      await axios.delete(`http://localhost:3000/api/teachers/delete/${record._id}`);
       message.success('User deleted successfully!');
-      fetchData(); // Refresh data after deletion
     } catch (error) {
       message.error('Error deleting user: ' + error.message);
     }
@@ -159,6 +130,8 @@ const TableComp = () => {
           </Form.Item>
         </Form>
       </Modal>
+     {editVisible && <EditTeacher editVisible={editVisible} setEditVisible={setEditVisible} editRecord={editRecord}/>}
+      
     </div>
   );
 };

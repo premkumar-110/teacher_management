@@ -1,0 +1,54 @@
+.AddTeacherContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 0, 0,0.7);
+    z-index: 1;
+}
+.AddTeacher{
+    width: 40%;
+    height: 435;
+    background-color: white;
+    padding: 2rem;
+}
+
+.AddTeacherHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid lightgray;
+    
+}
+.CloseAddTeacher{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.AddingContainer{
+    padding: 2rem;
+}
+.InputContainer{
+    display: flex;
+    width: 100%;
+    gap: 10%;
+    align-items: center;
+    justify-content: space-between;
+}
+.userInput{
+    width: 40%;
+}
+@media only screen and (max-width: 900px) {
+    .InputContainer{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10%;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

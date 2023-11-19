@@ -1,43 +1,27 @@
 const mongoose=require('mongoose');
-const validator=require('validator')
-const bcryptjs = require('bcryptjs');
 
-mongoose.connect('mongodb+srv://admin:VTH8dXLG4aENn7vZ@cluster0.qprskym.mongodb.net/users?retryWrites=true&w=majority',{
-    useNewUrlParser:true,
-}).then((conn)=>{
+mongoose.connect('mongodb+srv://admin:VTH8dXLG4aENn7vZ@cluster0.qprskym.mongodb.net/teacherDB?retryWrites=true&w=majority',{})
+.then((conn)=>{
     console.log("Connection Successful")
 })
 
-const userSchema=new mongoose.Schema({
-    email:{
+const teacherSchema=new mongoose.Schema({
+  fullName:{
         type:String,
-        required:[true,"Email is required"],
-        unique:true,
-        lowercase:true,
-        validate:[validator.isEmail, " Enter a valid Email"]
+        required:[true,"Name is required"],
     },
-    password:{
-        type:String,
-        required:[true,"Password is Required"],
-        select:false
+    age:{
+        type:Number,
+        required:[true,"Password is Required"]
     },
-    name: {
+    dateOfBirth: {
         type: String
       },
-      phoneNumber: {
+      numberOfClasses: {
         type: String
       },
-      address: {
-        type: String
-      },
-      cart:{
-        type:Array
-      },
-      purchased:{
-        type:Array
-      }
 })
    
-  const User=mongoose.model('User',userSchema);
+  const Teacher=mongoose.model('User',teacherSchema);
   
-  module.exports=User;
+  module.exports=Teacher;

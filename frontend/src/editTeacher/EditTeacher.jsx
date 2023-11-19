@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import './AddTeacher.css';
+import './editTeacher.css';
 import { CloseOutlined } from '@ant-design/icons';
 import { Button, DatePicker, Form, Input, InputNumber, message, Spin } from 'antd';
 import axios from 'axios';
 
-const AddTeacher = ({ setAddTeacher }) => {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState(24);
-  const [dob, setDob] = useState();
-  const [classNo, setClassNo] = useState(1);
+const EditTeacher = ({ editRecord , setEditVisible, editVisible }) => {
+  const [name, setName] = useState(editRecord.fullName);
+  const [age, setAge] = useState(editRecord.age);
+  const [dob, setDob] = useState(editRecord.dateOfBirth);
+  const [classNo, setClassNo] = useState(editRecord.numberOfClasses);
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -19,7 +19,7 @@ const AddTeacher = ({ setAddTeacher }) => {
   const handleAgeChange = (value) => {
     setAge(value);
     if (value < 24 || value > 60) {
-      message.warning("Age should be grater than 23")
+      setErrorMessage('Age should be between 24 and 60');
     } else {
       setErrorMessage('');
     }
@@ -27,31 +27,32 @@ const AddTeacher = ({ setAddTeacher }) => {
 
   const handleSubmit = async () => {
     setUploading(true);
-
+  
     try {
       if (!name || !dob || !classNo || errorMessage) {
         message.warning('All fields are required!!!');
         return;
       }
-
-      const response = await axios.post('http://localhost:3000/api/teachers/addTeacher', {
+  
+      const response = await axios.put(`http://localhost:3000/api/teachers/update/${editRecord._id}`, {
         fullName: name,
         age: age,
         dateOfBirth: dob,
         numberOfClasses: classNo,
       });
-
-      if (response.status === 201) {
-        message.success('Teacher added successfully!!');
+  
+      if (response.status >= 200 && response.status < 300) {
+        message.success('Teacher updated successfully!!');
       } else {
-        message.warning('Unable to add data...');
+        message.warning('Unable to update teacher data...');
       }
     } catch (error) {
-      message.error('Error adding teacher: ' + error.message);
+      message.error('Error updating teacher: ' + error.message);
     } finally {
       setUploading(false);
-    }
+    };
   };
+  
 
   const onChange = (date) => {
     if (date) {
@@ -66,8 +67,8 @@ const AddTeacher = ({ setAddTeacher }) => {
     <div className='AddTeacherContainer'>
       <div className='AddTeacher'>
         <div className='AddTeacherHeader'>
-          <div className='fontBold'>ADD TEACHER</div>
-          <CloseOutlined onClick={() => setAddTeacher(false)} className='CloseAddTeacher' />
+          <div className='fontBold'>UPDATE TEACHER</div>
+          <CloseOutlined onClick={() => setEditVisible(false)} className='CloseAddTeacher' />
         </div>
         <div className='AddingContainer'>
           <div className='InputContainer'>
@@ -77,6 +78,7 @@ const AddTeacher = ({ setAddTeacher }) => {
             <Form.Item label='DATE OF BIRTH'>
               
             <input
+            value={dob}
                 type="date"
                 onChange={(e) => onChange(e.target.value)}
             />
@@ -84,7 +86,7 @@ const AddTeacher = ({ setAddTeacher }) => {
           </div>
           <div className='InputContainer'>
             <Form.Item label='AGE'>
-              <InputNumber min={20} value={age} onChange={(value) => handleAgeChange(value)} />
+              <InputNumber min={24} value={age} onChange={(value) => handleAgeChange(value)} />
             </Form.Item>
             <Form.Item label='NUMBER OF CLASS'>
               <InputNumber min={1} value={classNo} onChange={(value) => setClassNo(value)} placeholder='1' />
@@ -97,11 +99,11 @@ const AddTeacher = ({ setAddTeacher }) => {
           onClick={handleSubmit}
           disabled={uploading}
         >
-          {uploading ? <Spin style={{ color: 'white' }} /> : 'ADD NEW TEACHER'}
+          {uploading ? <Spin style={{ color: 'white' }} /> : 'UPDATE TEACHER'}
         </Button>
       </div>
     </div>
   );
 };
 
-export default AddTeacher;
+export default EditTeacher
