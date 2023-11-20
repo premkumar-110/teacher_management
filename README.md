@@ -13,6 +13,8 @@ BACKEND : https://teacher-management-backend.vercel.app/
 
 End user features:
 Landing/Home Page : 
+
+![Screenshot_2023-11-20-07-25-19-21_40deb401b9ffe8e1df2f1cc5ba480b12](https://github.com/premkumar-110/teacher_management/assets/122764871/3f416da0-03bd-43a1-be03-02ef88a8c2e8)
         
 1. SHOW ALL TEACHERS
 
