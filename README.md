@@ -13,8 +13,6 @@ BACKEND : https://teacher-management-backend.vercel.app/
 
 End user features:
 Landing/Home Page : 
- 
- ![Screenshot 2023-11-19 130156](https://github.com/premkumar-110/teacher_management/assets/122764871/91ee360e-491d-4e76-874b-3f50bb5d46bd)
         
 1. SHOW ALL TEACHERS
 
@@ -25,9 +23,6 @@ Landing/Home Page :
    - **Response:**
      - **Status Code:** 200 OK
      - **Body:** Array of teacher objects
-
-              
-![Screenshot 2023-11-19 130502](https://github.com/premkumar-110/teacher_management/assets/122764871/e3e7b2b1-4719-4fb4-b7c5-16d076a72ffb)
 
 2. ADD A TEACHER
 
@@ -52,10 +47,60 @@ Landing/Home Page :
      - **Body:** JSON object with the added teacher's information.
 
 
-![Screenshot 2023-11-19 131100](https://github.com/premkumar-110/teacher_management/assets/122764871/3a908a38-306a-41ff-b95c-8b272badb821)
-
 3. FILTER TEACHERS BASED ON CRITERIA
 
    **Endpoint:** `POST /api/teachers/filter`
    
    **Description:** Filters teachers based on specified criteria.
+   
+   **Request:**
+     - **Body:** JSON object with the following properties:
+       - `ageRange` (Number): Age to filter by. Set to -1 if not filtering by age.
+       - `classRange` (Number): Number of classes to filter by. Set to -1 if not filtering by classes.
+       - `ageFilters` (Array of Strings): Age ranges for additional filtering.
+       - `classFilters` (Array of Strings): Class ranges for additional filtering.
+   
+   **Response:**
+     - **Status Code:** 200 OK
+     - **Body:** Array of filtered teacher objects
+
+4. SEARCH FOR A TEACHER
+
+   **Endpoint:** `POST /api/teachers/search`
+   
+   **Description:** Searches for teachers based on a provided search value.
+   
+   **Request:**
+     - **Body:** JSON object with the following property:
+       - `searchValue` (String): Value to search for in teacher names.
+   
+   **Response:**
+     - **Status Code:** 200 OK
+     - **Body:** Array of teacher objects that match the search criteria.
+
+5. UPDATE A TEACHER'S RECORD
+
+   **Endpoint:** `PUT /api/teachers/update/id`
+   
+   **Description:** Updates the information of a specific teacher.
+   
+   **Request:**
+     - **Params:** `id` (String) - The ID of the teacher to update.
+     - **Body:** JSON object with the properties to update.
+   
+   **Response:**
+     - **Status Code:** 200 OK
+     - **Body:** JSON object with the updated teacher's information.
+
+6. DELETE A TEACHER
+
+   **Endpoint:** `DELETE /api/teachers/delete/id`
+   
+   **Description:** Deletes a specific teacher from the system.
+   
+   **Request:**
+     - **Params:** `id` (String) - The ID of the teacher to delete.
+   
+   **Response:**
+     - **Status Code:** 200 OK
+     - **Body:** JSON object with a success message.
