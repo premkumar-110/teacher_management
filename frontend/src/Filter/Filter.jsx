@@ -44,6 +44,7 @@ const Filter = ({ data, onSearch }) => {
       ageFilters,
       classFilters,
     };
+    console.log(filters)
     onSearch(filters);
   };
 
@@ -61,7 +62,7 @@ const Filter = ({ data, onSearch }) => {
         <br />
         <Slider
           value={ageRange}
-          min={24}
+          min={-1}
           max={60}
           included={false}
           onChange={handleAgeChange}
@@ -89,6 +90,7 @@ const Filter = ({ data, onSearch }) => {
         <p className="fontBold">FILTER BY NUMBER OF CLASS</p>
         <br />
         <Slider
+          min={-1}
           value={classRange}
           included={false}
           onChange={handleClassChange}

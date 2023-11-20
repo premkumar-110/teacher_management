@@ -13,10 +13,15 @@ import {
 import axios from "axios";
 
 const EditTeacher = ({ editRecord, setEditVisible, editVisible, onUpdate }) => {
-  const [name, setName] = useState(editRecord.fullName);
+  const [firstName, setFirstName] = useState(editRecord.firstName);
+  const [lastName, setLastName] = useState(editRecord.lastName);
   const [age, setAge] = useState(editRecord.age);
   const [dob, setDob] = useState(editRecord.dateOfBirth);
-  const [classNo, setClassNo] = useState(editRecord.numberOfClasses);
+  const [day1,setDay1] = useState(editRecord.day1);
+  const [day2,setDay2] = useState(editRecord.day2);
+  const [day3,setDay3] = useState(editRecord.day3);
+  const [day4,setDay4] = useState(editRecord.day4);
+  const [day5,setDay5] = useState(editRecord.day5);
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -26,18 +31,14 @@ const EditTeacher = ({ editRecord, setEditVisible, editVisible, onUpdate }) => {
 
   const handleAgeChange = (value) => {
     setAge(value);
-    if (value < 24 || value > 60) {
-      setErrorMessage("Age should be between 24 and 60");
-    } else {
-      setErrorMessage("");
-    }
+    
   };
 
   const handleSubmit = async () => {
     setUploading(true);
 
     try {
-      if (!name || !dob || !classNo || errorMessage) {
+      if (!firstName || !lastName || !dob || !age ) {
         message.warning("All fields are required!!!");
         return;
       }
@@ -45,10 +46,15 @@ const EditTeacher = ({ editRecord, setEditVisible, editVisible, onUpdate }) => {
       const response = await axios.put(
         `https://teacher-management-backend.vercel.app/api/teachers/update/${editRecord._id}`,
         {
-          fullName: name,
+          firstName: firstName,
+          lastName: lastName,
           age: age,
           dateOfBirth: dob,
-          numberOfClasses: classNo,
+          day1:day1,
+          day2:day2,
+          day3:day3,
+          day4:day4,
+          day5:day5,
         }
       );
 
@@ -86,37 +92,72 @@ const EditTeacher = ({ editRecord, setEditVisible, editVisible, onUpdate }) => {
         </div>
         <div className="AddingContainer">
           <div className="InputContainer">
-            <Form.Item label="FULL NAME">
+            <Form.Item label="FIRST NAME">
               <Input
-                value={name}
-                onChange={(e) => handleNameChange(e.target.value)}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </Form.Item>
+            <Form.Item label="LAST NAME">
+              <Input
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </Form.Item>
+            </div>
+            <div className="Classes">
             <Form.Item label="DATE OF BIRTH">
-              <input
-                value={dob}
-                type="date"
-                onChange={(e) => onChange(e.target.value)}
-              />
+              <input type="date" onChange={(e) => onChange(e.target.value)} value={dob}/>
             </Form.Item>
-          </div>
-          <div className="InputContainer">
             <Form.Item label="AGE">
               <InputNumber
-                min={24}
                 value={age}
                 onChange={(value) => handleAgeChange(value)}
               />
             </Form.Item>
-            <Form.Item label="NUMBER OF CLASS">
-              <InputNumber
-                min={1}
-                value={classNo}
-                onChange={(value) => setClassNo(value)}
-                placeholder="1"
-              />
-            </Form.Item>
-          </div>
+            </div>
+         <div className="Classes">
+          <Form.Item label="CLASSES ON MONDAY">
+            <InputNumber
+              min={0}
+              value={day1}
+              onChange={(value) => setDay1(value)}
+              placeholder="1"
+            />
+          </Form.Item>
+          <Form.Item label="CLASSES ON TUESDAY">
+            <InputNumber
+              min={0}
+              value={day2}
+              onChange={(value) => setDay2(value)}
+              placeholder="1"
+            />
+          </Form.Item>
+          <Form.Item label="CLASSES ON WEDNESDAY">
+            <InputNumber
+              min={0}
+              value={day3}
+              onChange={(value) => setDay3(value)}
+              placeholder="1"
+            />
+          </Form.Item>
+          <Form.Item label="CLASSES ON THURSDAY">
+            <InputNumber
+              min={0}
+              value={day4}
+              onChange={(value) => setDay4(value)}
+              placeholder="1"
+            />
+          </Form.Item>
+          <Form.Item label="CLASSES ON FRIDAY">
+            <InputNumber
+              min={0}
+              value={day5}
+              onChange={(value) => setDay5(value)}
+              placeholder="1"
+            />
+          </Form.Item>
+          </div>  
         </div>
         <Button
           type="primary"

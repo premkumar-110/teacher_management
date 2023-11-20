@@ -75,44 +75,74 @@ const TableComp = ({
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "fullName",
-      width: 150,
+      title: "First Name",
+      dataIndex: "firstName",
+      width: 100,
+    },
+    {
+      title: "Last Name",
+      dataIndex: "lastName",
+      width: 100,
     },
     {
       title: "Age",
       dataIndex: "age",
-      width: 150,
+      width: 75,
     },
     {
       title: "Date of Birth",
       dataIndex: "dateOfBirth",
-      width: 150,
+      width: 125,
     },
     {
-      title: "Number of Classes",
-      dataIndex: "numberOfClasses",
-      width: 150,
+      title: "Monday Classes",
+      dataIndex: "day1",
+      width: 110,
     },
     {
-      title: "Action",
+      title: "Tuesday Classes",
+      dataIndex: "day2",
+      width: 110,
+    },
+    {
+      title: "Wednesday Classes",
+      dataIndex: "day3",
+      width: 110,
+    },
+    {
+      title: "Thursday Class",
+      dataIndex: "day4",
+      width: 110,
+    },
+    {
+      title: "Friday Class",
+      dataIndex: "day5",
+      width: 90,
+    },
+    {
+      title: "Avg Weekly Class",
+      dataIndex: "avgClasses",
+      width: 120,
+    },
+    {
+      title: "Update",
       key: "action",
       render: (text, record) => (
         <Button type="primary" onClick={() => handleEdit(record)}>
           Edit
         </Button>
       ),
-      width: 150,
+      width: 110,
     },
     {
-      title: "Action",
+      title: "Delete",
       key: "action",
       render: (text, record) => (
         <Button danger type="primary" onClick={() => handleDelete(record)}>
           Delete
         </Button>
       ),
-      width: 150,
+      width: 110,
     },
   ];
 
@@ -130,27 +160,6 @@ const TableComp = ({
         onChange={handleChange}
       />
 
-      <Modal
-        title="Edit User"
-        visible={visible}
-        onOk={handleUpdate}
-        onCancel={handleCancel}
-      >
-        <Form form={form} layout="vertical">
-          <Form.Item label="Full Name" name="fullName">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Age" name="age">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Date of Birth" name="dateOfBirth">
-            <DatePicker format="YYYY-MM-DD" />
-          </Form.Item>
-          <Form.Item label="Number of Classes" name="numberOfClasses">
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
       {editVisible && (
         <EditTeacher
           editVisible={editVisible}

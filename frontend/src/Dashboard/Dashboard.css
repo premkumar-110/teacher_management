@@ -1,6 +1,6 @@
 .DashboardContainer {
   padding: 1rem;
-  width: 100%;
+  width: 80%;
 }
 
 .SearchContainer {
@@ -32,4 +32,10 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 900px) {
+  .DashboardContainer {
+    padding: 1rem;
+    width: 100%  }
 }

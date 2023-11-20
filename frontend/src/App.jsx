@@ -15,6 +15,7 @@ function App() {
         "https://teacher-management-backend.vercel.app/api/teachers/getTeachers"
       );
       setData(response.data);
+      console.log(response)
     } catch (error) {
       message.error("Error fetching data: " + error.message);
     }
