@@ -37,10 +37,15 @@ Landing/Home Page :
    
    **Request:**
      - **Body:** JSON object with the following properties:
-       - `fullName` (String): Full name of the teacher.
+       - `FirstName` (String): First name of the teacher.
+       - `Lastname` (String): Last name of the teacher.
        - `age` (Number): Age of the teacher.
        - `dateOfBirth` (String): Date of birth of the teacher.
-       - `numberOfClasses` (Number): Number of classes the teacher teaches.
+       - `Monday Classes` (Number): classes on Monday the teacher teaches.
+       - `Tuesday Classes` (Number): classes on Tuesday the teacher teaches.
+       - `Wednesday Classes` (Number): classes on Wednesday the teacher teaches.
+       - `Thursday Classes` (Number): classes on Thursday the teacher teaches.
+       - `Friday Classes` (Number): classes on Friday the teacher teaches.
    
    **Response:**
      - **Status Code:** 201 Created
